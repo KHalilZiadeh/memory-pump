@@ -1,0 +1,7 @@
+{
+  "name": "memory-pumb",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular-standalone"
+}
