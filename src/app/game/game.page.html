@@ -1,0 +1,46 @@
+<ion-content class="number-page"
+             [fullscreen]="true">
+
+  <input #hiddenInput
+         type="number"
+         inputmode="numeric"
+         pattern="[0-9]*"
+         class="hidden-input"
+         (input)="onInput($event)"
+         (blur)="onInputBlur()"
+         min="0"
+         max="9"
+         autocomplete="off" />
+
+  <div class="instruction-banner">
+
+    <div class="score-badge">
+      <span class="score-value"
+            [class.correct]="feedback === 'correct'"
+            [class.wrong]="feedback === 'wrong'">{{ score }}</span>
+      <span class="score-label">pts</span>
+    </div>
+
+    <div class="instruction-eyebrow">
+      <span class="dot"></span>
+      memory test
+      <span class="dot"></span>
+    </div>
+    <p class="instruction-text">
+      Enter the <strong>last number</strong> shown
+    </p>
+  </div>
+
+  <div class="display-container"
+       (click)="focusInput()">
+    <div class="number-display"
+         [class.hidden]="isHidden"
+         [class.pulse]="isPulsing"
+         [class.correct]="feedback === 'correct'"
+         [class.wrong]="feedback === 'wrong'">
+      {{ currentNumber }}
+    </div>
+
+  </div>
+
+</ion-content>

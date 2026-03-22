@@ -1,0 +1,210 @@
+// ── Palette ───────────────────────────────────────────────────────────────────
+:root {
+  --bg: #0c0c0e;
+  --surface: #16161a;
+  --surface-2: #1e1e24;
+  --accent: #e8ff6b;
+  --accent-dim: #b8cc40;
+  --accent-glow: rgba(232, 255, 107, 0.15);
+  --correct: #6bffb8;
+  --correct-glow: rgba(107, 255, 184, 0.25);
+  --wrong: #ff6b6b;
+  --wrong-glow: rgba(255, 107, 107, 0.25);
+  --text: #f0f0f0;
+  --muted: #555;
+  --muted-light: #888;
+  --mono: 'Courier New', Courier, monospace;
+  --serif: 'Georgia', 'Times New Roman', serif;
+}
+
+// ── Page ──────────────────────────────────────────────────────────────────────
+ion-content.number-page {
+  --background: var(--bg);
+}
+
+// ── Hidden input ──────────────────────────────────────────────────────────────
+.hidden-input {
+  position: fixed;
+  left: -9999px;
+  top: -9999px;
+  width: 1px;
+  height: 1px;
+  opacity: 0;
+  pointer-events: none;
+}
+
+// ── Score badge ───────────────────────────────────────────────────────────────
+.score-badge {
+  position: absolute;
+  top: 52px;
+  right: 28px;
+  display: flex;
+  align-items: baseline;
+  gap: 3px;
+}
+
+.score-value {
+  font-family: var(--mono);
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--muted-light);
+  letter-spacing: -0.02em;
+  transition: color 0.3s ease;
+}
+
+.score-label {
+  font-family: var(--mono);
+  font-size: 9px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+// ── Instruction banner (top) ──────────────────────────────────────────────────
+.instruction-banner {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  padding: 52px 32px 28px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  background: linear-gradient(to bottom, var(--surface) 60%, transparent);
+  z-index: 10;
+}
+
+.instruction-eyebrow {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 0.35em;
+  text-transform: uppercase;
+  color: var(--muted);
+
+  .dot {
+    width: 4px;
+    height: 4px;
+    border-radius: 50%;
+    background: var(--muted);
+  }
+}
+
+.instruction-text {
+  margin: 0;
+  font-family: var(--mono);
+  font-size: 15px;
+  letter-spacing: 0.04em;
+  color: var(--muted-light);
+  text-align: center;
+
+  strong {
+    color: var(--accent);
+    font-weight: 700;
+  }
+}
+
+// ── Main tap area ─────────────────────────────────────────────────────────────
+.display-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  gap: 40px;
+  cursor: pointer;
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
+}
+
+// ── Big number ────────────────────────────────────────────────────────────────
+.number-display {
+  font-family: var(--serif);
+  font-size: clamp(140px, 35vw, 260px);
+  font-weight: 700;
+  line-height: 1;
+  color: var(--accent);
+  filter: drop-shadow(0 0 40px rgba(232, 255, 107, 0.3));
+  transition: color 0.2s ease, filter 0.2s ease;
+
+  &.pulse {
+    animation: pop 0.35s cubic-bezier(0.36, 0.07, 0.19, 0.97);
+  }
+
+  &.correct {
+    color: var(--correct);
+    filter: drop-shadow(0 0 40px var(--correct-glow));
+  }
+
+  &.wrong {
+    color: var(--wrong);
+    filter: drop-shadow(0 0 40px var(--wrong-glow));
+    animation: shake 0.35s cubic-bezier(0.36, 0.07, 0.19, 0.97);
+  }
+
+  &.hidden {
+    visibility: hidden;
+  }
+}
+
+@keyframes pop {
+  0%   { transform: scale(1);    opacity: 1; }
+  30%  { transform: scale(1.18); opacity: 0.85; }
+  60%  { transform: scale(0.94); opacity: 1; }
+  100% { transform: scale(1);    opacity: 1; }
+}
+
+@keyframes shake {
+  0%   { transform: translateX(0); }
+  20%  { transform: translateX(-8px); }
+  40%  { transform: translateX(8px); }
+  60%  { transform: translateX(-5px); }
+  80%  { transform: translateX(5px); }
+  100% { transform: translateX(0); }
+}
+
+// ── Score feedback states ─────────────────────────────────────────────────────
+.score-value {
+  &.correct { color: var(--correct); }
+  &.wrong   { color: var(--wrong); }
+}
+
+// ── Tap hint (bottom) ─────────────────────────────────────────────────────────
+.tap-hint {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+}
+
+.tap-ring {
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  border: 1.5px solid var(--muted);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--muted-light);
+  animation: breathe 2.8s ease-in-out infinite;
+
+  ion-icon {
+    font-size: 22px;
+  }
+}
+
+@keyframes breathe {
+  0%, 100% { border-color: var(--muted);       box-shadow: none; }
+  50%       { border-color: var(--accent-dim);  box-shadow: 0 0 14px var(--accent-glow); }
+}
+
+.tap-label {
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--muted);
+}

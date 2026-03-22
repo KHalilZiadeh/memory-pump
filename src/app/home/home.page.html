@@ -1,20 +1,40 @@
-<ion-header [translucent]="true">
-  <ion-toolbar>
-    <ion-title>
-      Blank
-    </ion-title>
-  </ion-toolbar>
-</ion-header>
+<ion-content class="home-page" [fullscreen]="true">
 
-<ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">Blank</ion-title>
-    </ion-toolbar>
-  </ion-header>
-
-  <div id="container">
-    <strong>Ready to create an app?</strong>
-    <p>Start with Ionic <a target="_blank" rel="noopener noreferrer" href="https://ionicframework.com/docs/components">UI Components</a></p>
+  <!-- Ambient background digits -->
+  <div class="bg-digits" aria-hidden="true">
+    <span>3</span><span>7</span><span>1</span><span>9</span>
+    <span>4</span><span>0</span><span>6</span><span>2</span>
+    <span>8</span><span>5</span>
   </div>
+
+  <!-- Main content -->
+  <div class="home-container">
+
+    <!-- Eyebrow -->
+    <div class="eyebrow">
+      <span class="eyebrow-line"></span>
+      <span class="eyebrow-text">train your mind</span>
+      <span class="eyebrow-line"></span>
+    </div>
+
+    <!-- Title -->
+    <div class="title-block">
+      <h1 class="title">Memory<br><em>Test</em></h1>
+    </div>
+
+    <!-- Subtitle -->
+    <p class="subtitle">
+      Numbers flash. Can you keep up?
+    </p>
+
+    <!-- Mode button -->
+    <div class="modes">
+      <button class="mode-btn" (click)="goToGame()">
+        <span class="mode-btn-label">Single Digit Mode</span>
+        <span class="mode-btn-arrow">→</span>
+      </button>
+    </div>
+
+  </div>
+
 </ion-content>

@@ -1,27 +1,178 @@
-#container {
-  text-align: center;
+// ── Palette (mirrors game page) ───────────────────────────────────────────────
+:root {
+  --bg: #0c0c0e;
+  --surface: #16161a;
+  --accent: #e8ff6b;
+  --accent-dim: #b8cc40;
+  --accent-glow: rgba(232, 255, 107, 0.12);
+  --text: #f0f0f0;
+  --muted: #555;
+  --muted-light: #888;
+  --mono: 'Courier New', Courier, monospace;
+  --serif: 'Georgia', 'Times New Roman', serif;
+}
 
+// ── Page ──────────────────────────────────────────────────────────────────────
+ion-content.home-page {
+  --background: var(--bg);
+}
+
+// ── Ambient background digits ─────────────────────────────────────────────────
+.bg-digits {
   position: absolute;
-  left: 0;
-  right: 0;
-  top: 50%;
-  transform: translateY(-50%);
+  inset: 0;
+  pointer-events: none;
+  overflow: hidden;
+  z-index: 0;
+
+  span {
+    position: absolute;
+    font-family: var(--serif);
+    font-weight: 700;
+    color: rgba(232, 255, 107, 0.04);
+    user-select: none;
+    animation: drift linear infinite;
+
+    &:nth-child(1)  { font-size: 180px; top: 5%;  left: 8%;  animation-duration: 22s; animation-delay: 0s; }
+    &:nth-child(2)  { font-size: 120px; top: 15%; right: 10%; animation-duration: 28s; animation-delay: -6s; }
+    &:nth-child(3)  { font-size: 220px; top: 40%; left: -2%; animation-duration: 35s; animation-delay: -12s; }
+    &:nth-child(4)  { font-size: 90px;  top: 60%; right: 5%; animation-duration: 20s; animation-delay: -3s; }
+    &:nth-child(5)  { font-size: 160px; top: 75%; left: 20%; animation-duration: 30s; animation-delay: -9s; }
+    &:nth-child(6)  { font-size: 260px; top: -5%; left: 50%; animation-duration: 40s; animation-delay: -18s; }
+    &:nth-child(7)  { font-size: 100px; top: 85%; right: 25%; animation-duration: 25s; animation-delay: -5s; }
+    &:nth-child(8)  { font-size: 140px; top: 30%; left: 65%; animation-duration: 32s; animation-delay: -14s; }
+    &:nth-child(9)  { font-size: 80px;  top: 55%; left: 42%; animation-duration: 18s; animation-delay: -2s; }
+    &:nth-child(10) { font-size: 200px; top: 70%; right: 40%; animation-duration: 38s; animation-delay: -20s; }
+  }
 }
 
-#container strong {
-  font-size: 20px;
-  line-height: 26px;
+@keyframes drift {
+  0%   { transform: translateY(0px) rotate(0deg); }
+  50%  { transform: translateY(-18px) rotate(2deg); }
+  100% { transform: translateY(0px) rotate(0deg); }
 }
 
-#container p {
-  font-size: 16px;
-  line-height: 22px;
+// ── Main container ────────────────────────────────────────────────────────────
+.home-container {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  padding: 48px 32px;
+  gap: 32px;
+}
 
-  color: #8c8c8c;
+// ── Eyebrow ───────────────────────────────────────────────────────────────────
+.eyebrow {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  animation: fadeUp 0.7s ease both;
+  animation-delay: 0.1s;
+}
 
+.eyebrow-line {
+  width: 32px;
+  height: 1px;
+  background: var(--muted);
+}
+
+.eyebrow-text {
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 0.4em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+// ── Title ─────────────────────────────────────────────────────────────────────
+.title-block {
+  animation: fadeUp 0.7s ease both;
+  animation-delay: 0.2s;
+}
+
+.title {
   margin: 0;
+  font-family: var(--serif);
+  font-size: clamp(64px, 18vw, 100px);
+  font-weight: 700;
+  line-height: 0.95;
+  color: var(--text);
+  text-align: center;
+  letter-spacing: -0.02em;
+
+  em {
+    font-style: italic;
+    color: var(--accent);
+    filter: drop-shadow(0 0 24px var(--accent-glow));
+  }
 }
 
-#container a {
-  text-decoration: none;
+// ── Subtitle ──────────────────────────────────────────────────────────────────
+.subtitle {
+  margin: 0;
+  font-family: var(--mono);
+  font-size: 13px;
+  letter-spacing: 0.08em;
+  color: var(--muted-light);
+  text-align: center;
+  animation: fadeUp 0.7s ease both;
+  animation-delay: 0.35s;
+}
+
+// ── Mode button ───────────────────────────────────────────────────────────────
+.modes {
+  margin-top: 16px;
+  width: 100%;
+  max-width: 320px;
+  animation: fadeUp 0.7s ease both;
+  animation-delay: 0.5s;
+}
+
+.mode-btn {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 18px 24px;
+  background: transparent;
+  border: 1.5px solid var(--muted);
+  border-radius: 2px;
+  cursor: pointer;
+  transition: border-color 0.2s ease, background 0.2s ease;
+  -webkit-tap-highlight-color: transparent;
+
+  &:active,
+  &:hover {
+    border-color: var(--accent);
+    background: var(--accent-glow);
+
+    .mode-btn-label { color: var(--accent); }
+    .mode-btn-arrow { color: var(--accent); transform: translateX(4px); }
+  }
+}
+
+.mode-btn-label {
+  font-family: var(--mono);
+  font-size: 12px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--muted-light);
+  transition: color 0.2s ease;
+}
+
+.mode-btn-arrow {
+  font-family: var(--mono);
+  font-size: 16px;
+  color: var(--muted);
+  transition: color 0.2s ease, transform 0.2s ease;
+}
+
+// ── Entrance animation ────────────────────────────────────────────────────────
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(16px); }
+  to   { opacity: 1; transform: translateY(0); }
 }
